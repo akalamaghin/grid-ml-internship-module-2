@@ -1,4 +1,5 @@
 from typing import List
+import unittest
 
 
 class Solution:
@@ -16,11 +17,18 @@ class Solution:
         return False
     
 
-if __name__ == '__main__':
+class SolutionTest(unittest.TestCase):
     sol = Solution()
 
-    test1 = [1, 2, 3, 2]
-    test2 = [1, 2, 3, 4]
+    def test1(self):
+        self.assertEqual(self.sol.containsDuplicate([1, 2, 3, 1]), True)
 
-    print(f"{test1} contains duplcates - {sol.containsDuplicate(test1)}")
-    print(f"{test2} contains duplcates - {sol.containsDuplicate(test2)}")
+    def test2(self):
+        self.assertEqual(self.sol.containsDuplicate([1, 2, 3, 4]), False)
+
+    def test3(self):
+        self.assertEqual(self.sol.containsDuplicate([1, 1, 1, 3, 3, 4, 3, 2, 4, 2]), True)
+
+
+if __name__ == '__main__':
+    unittest.main()

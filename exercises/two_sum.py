@@ -12,4 +12,12 @@ class Solution:
 
 if __name__ == '__main__':
     sol = Solution()
-    print(sol.twoSum([3, 2, 4], 6))
+
+    nums = [3, 2, 4]
+    target = 6
+
+    indices = sol.twoSum(nums, target)
+    print(
+        f"nums={nums}, target={target}:\n"
+        f"nums[{indices[0]}] + nums[{indices[1]}] = target"
+    )

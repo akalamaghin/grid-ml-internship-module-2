@@ -17,7 +17,11 @@ class Solution:
             if par in PARENTHESES_PAIRS.keys():
                 dq.append(par)
             else:
-                l_par = dq.pop()
+                try:
+                    l_par = dq.pop()
+                except IndexError:
+                    return False
+
                 if par == PARENTHESES_PAIRS[l_par]:
                     continue
                 else:

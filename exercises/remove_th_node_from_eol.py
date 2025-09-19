@@ -1,5 +1,5 @@
-import unittest
 from typing import Optional
+import unittest
 
 
 class ListNode:
@@ -39,13 +39,31 @@ class Solution:
         for i in range(len(nodes) - 1):
             nodes[i].next = nodes[i + 1]
         nodes[-1].next = None
-        
+
         return nodes[0]
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if head is None or head.next is None:
+            return None
+
+        reversed_head = self.reverseList(head)
+
+        curr, prev = reversed_head, None
+        for _ in range(n - 1):
+            assert curr is not None
+            prev, curr = curr, curr.next
+
+        if prev is None:
+            reversed_head = curr.next if curr else None
+        else:
+            prev.next = curr.next if curr else None
+
+        return self.reverseList(reversed_head)
 
 
 class SolutionTest(unittest.TestCase):
     sol = Solution()
-    
+
     def list_to_nodes(self, lst):
         if not lst:
             return None
@@ -63,20 +81,20 @@ class SolutionTest(unittest.TestCase):
             node = node.next
         return lst
 
-    def test1(self):
+    def test_example1(self):
         head = self.list_to_nodes([1, 2, 3, 4, 5])
-        reversed_head = self.sol.reverseList(head)
-        self.assertEqual(self.nodes_to_list(reversed_head), [5, 4, 3, 2, 1])
+        res = self.sol.removeNthFromEnd(head, 2)
+        self.assertEqual(self.nodes_to_list(res), [1, 2, 3, 5])
 
-    def test2(self):
+    def test_example2(self):
+        head = self.list_to_nodes([1])
+        res = self.sol.removeNthFromEnd(head, 1)
+        self.assertEqual(self.nodes_to_list(res), [])
+
+    def test_example3(self):
         head = self.list_to_nodes([1, 2])
-        reversed_head = self.sol.reverseList(head)
-        self.assertEqual(self.nodes_to_list(reversed_head), [2, 1])
-
-    def test3(self):
-        head = self.list_to_nodes([])
-        reversed_head = self.sol.reverseList(head)
-        self.assertEqual(self.nodes_to_list(reversed_head), [])
+        res = self.sol.removeNthFromEnd(head, 1)
+        self.assertEqual(self.nodes_to_list(res), [1])
 
 
 if __name__ == "__main__":

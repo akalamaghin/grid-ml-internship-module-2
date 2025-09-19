@@ -5,27 +5,20 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         n = len(s)
 
-        is_substr_palidrome = [[False for _ in range(n)] for _ in range(n)]
-        
+        pal_cnt = 0
         for k in range(n):
             i, j = k, k
 
             while i >= 0 and j < n and s[i] == s[j]:
-                is_substr_palidrome[i][j] = True
+                pal_cnt += 1
                 i -= 1
                 j += 1
 
             i, j = k, k + 1
             while i >= 0 and j < n and s[i] == s[j]:
-                is_substr_palidrome[i][j] = True
+                pal_cnt += 1
                 i -= 1
                 j += 1
-
-        pal_cnt = 0
-        for l in is_substr_palidrome:
-            for is_pal in l:
-                if is_pal:
-                    pal_cnt += 1
 
         return pal_cnt
 
